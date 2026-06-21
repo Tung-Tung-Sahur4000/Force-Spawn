@@ -61,13 +61,13 @@
             </properties>
         </profile>
 
-        <!-- 1.21.x (Java 21) -->
+        <!-- 1.21.x latest stable: 1.21.11 (Java 21) -->
         <profile>
             <id>mc-1.21</id>
             <activation><activeByDefault>true</activeByDefault></activation>
             <properties>
                 <java.version>21</java.version>
-                <paper.api.version>1.21.4-R0.1-SNAPSHOT</paper.api.version>
+                <paper.api.version>1.21.11-R0.1-SNAPSHOT</paper.api.version>
                 <plugin.api.version>1.21</plugin.api.version>
             </properties>
         </profile>

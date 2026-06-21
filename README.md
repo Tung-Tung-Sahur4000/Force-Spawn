@@ -4,20 +4,26 @@ A Paper/Spigot plugin that forces every player to spawn in **The End** and block
 
 ## Supported versions
 
-| Minecraft   | Paper API profile     | Java required |
-|-------------|-----------------------|---------------|
-| 1.20.x      | `mc-1.20`             | 17            |
-| 1.21.x      | `mc-1.21` (default)   | 21            |
-| 1.22.x      | `mc-1.22`             | 21            |
-| 1.23.x      | `mc-1.23`             | 21            |
-| 1.24.x      | `mc-1.24`             | 21            |
-| 1.25.x      | `mc-1.25`             | 21            |
-| **26.1.x** stable | `mc-26.1`        | **25**        |
-| **26.2.x** alpha  | `mc-26.2`        | **25**        |
+| Minecraft               | Paper API profile     | Paper artifact                     | Java |
+|-------------------------|-----------------------|------------------------------------|------|
+| 1.20.x                  | `mc-1.20`             | `1.20.6-R0.1-SNAPSHOT`             | 17   |
+| **1.21.11** (stable, default) | `mc-1.21`        | `1.21.11-R0.1-SNAPSHOT`            | 21   |
+| 1.22.x                  | `mc-1.22`             | `1.22-R0.1-SNAPSHOT`               | 21   |
+| 1.23.x                  | `mc-1.23`             | `1.23-R0.1-SNAPSHOT`               | 21   |
+| 1.24.x                  | `mc-1.24`             | `1.24-R0.1-SNAPSHOT`               | 21   |
+| 1.25.x                  | `mc-1.25`             | `1.25-R0.1-SNAPSHOT`               | 21   |
+| **26.1.2** (stable)     | `mc-26.1`             | `26.1.2-R0.1-SNAPSHOT`             | **25** |
+| 26.2.x (alpha)          | `mc-26.2`             | `26.2-R0.1-SNAPSHOT`               | **25** |
 
-> Mojang switched to a **year-based** version scheme. After 1.25.x the next release is **26.1** ([Paper announcement](https://papermc.io/news/26-1)).
-> Current Paper artifacts: `io.papermc.paper:paper-api:26.1.2-R0.1-SNAPSHOT` (stable) and `26.2-R0.1-SNAPSHOT` (alpha). Both require **Java 25**.
-> Paper 26.1 also deprecates `WorldInfo#getName` for identity — this plugin uses `World#getKey()` first and falls back to the configured name on older APIs.
+> Mojang moved to a **year-based** version scheme. After 1.25.x the next release is **26.1** ([announcement](https://papermc.io/news/26-1) · [1.21.11 + 26 changes](https://papermc.io/news/1-21-11/)).
+> Confirmed stable on the [Paper fill API](https://fill.papermc.io/v3/projects/paper/versions): **1.21.11** and **26.1.2** (SUPPORTED). 26.1.1 is UNSUPPORTED.
+
+### 26.1 notes that affect plugin authors
+
+- **Unobfuscated server jars** — the internal remapper is gone. Plugins reaching into `net.minecraft.*` must ship Mojang-mapped code. *Force-Spawn only uses Bukkit API, so it is unaffected.*
+- **`WorldInfo#getName` deprecated for identity** — use `getKey()`. Handled here: `isOverworld()` checks `World#getKey()` (`minecraft:overworld`) first, with a `NoSuchMethodError` fallback to the configured name on older APIs.
+- **Gamerules switched to snake_case registry** — not used by this plugin.
+- **WorldBorder duration in ticks** — not used by this plugin.
 
 ## What it does
 
