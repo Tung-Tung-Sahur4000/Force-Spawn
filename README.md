@@ -67,6 +67,17 @@ mvn clean package -Dpaper.api.version=1.21.7-R0.1-SNAPSHOT -Dplugin.api.version=
 
 The jar will be at `target/ForceSpawn-1.1.0-mc<version>.jar`. Drop it into your server's `plugins/` folder.
 
+## Releases (CI)
+
+A GitHub Actions workflow at [`.github/workflows/build-release.yml`](.github/workflows/build-release.yml) builds the stable targets in a matrix:
+
+- `ForceSpawn-mc1.21.11.jar` — Paper 1.21.11, Java 21
+- `ForceSpawn-mc26.1.2.jar`  — Paper 26.1.2,  Java 25
+
+Triggers:
+- **Push a `v*` tag** (e.g. `git tag v1.1.0 && git push origin v1.1.0`) → builds both jars and publishes a GitHub Release with them attached.
+- **`workflow_dispatch`** → manually run; pass a `release_tag` input to also publish a Release, or leave it blank to just produce build artifacts.
+
 ## Config (`plugins/ForceSpawn/config.yml`)
 
 ```yaml
