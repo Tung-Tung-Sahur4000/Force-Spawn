@@ -4,19 +4,28 @@ A Paper/Spigot plugin that forces every player to spawn in **The End** and block
 
 ## Supported versions
 
-| Minecraft               | Paper API profile     | Paper artifact                     | Java |
-|-------------------------|-----------------------|------------------------------------|------|
-| 1.20.x                  | `mc-1.20`             | `1.20.6-R0.1-SNAPSHOT`             | 17   |
-| **1.21.11** (stable, default) | `mc-1.21`        | `1.21.11-R0.1-SNAPSHOT`            | 21   |
-| 1.22.x                  | `mc-1.22`             | `1.22-R0.1-SNAPSHOT`               | 21   |
-| 1.23.x                  | `mc-1.23`             | `1.23-R0.1-SNAPSHOT`               | 21   |
-| 1.24.x                  | `mc-1.24`             | `1.24-R0.1-SNAPSHOT`               | 21   |
-| 1.25.x                  | `mc-1.25`             | `1.25-R0.1-SNAPSHOT`               | 21   |
-| **26.1.2** (stable)     | `mc-26.1`             | `26.1.2-R0.1-SNAPSHOT`             | **25** |
-| 26.2.x (alpha)          | `mc-26.2`             | `26.2-R0.1-SNAPSHOT`               | **25** |
+The single jar runs on **every 1.21.x release (1.21 → 1.21.11)** and on **26.1.1 / 26.1.2**. UNSUPPORTED only means Paper has stopped publishing patches for that line — the API surface this plugin uses is unchanged, so the plugin keeps working.
 
-> Mojang moved to a **year-based** version scheme. After 1.25.x the next release is **26.1** ([announcement](https://papermc.io/news/26-1) · [1.21.11 + 26 changes](https://papermc.io/news/1-21-11/)).
-> Confirmed stable on the [Paper fill API](https://fill.papermc.io/v3/projects/paper/versions): **1.21.11** and **26.1.2** (SUPPORTED). 26.1.1 is UNSUPPORTED.
+| Minecraft           | Paper artifact                | Java | Profile          |
+|---------------------|-------------------------------|------|------------------|
+| 1.20.x              | `1.20.6-R0.1-SNAPSHOT`        | 17   | `mc-1.20`        |
+| 1.21                | `1.21-R0.1-SNAPSHOT`          | 21   | `mc-1.21.0`      |
+| 1.21.1              | `1.21.1-R0.1-SNAPSHOT`        | 21   | `mc-1.21.1`      |
+| 1.21.2              | `1.21.2-R0.1-SNAPSHOT`        | 21   | `mc-1.21.2`      |
+| 1.21.3              | `1.21.3-R0.1-SNAPSHOT`        | 21   | `mc-1.21.3`      |
+| 1.21.4              | `1.21.4-R0.1-SNAPSHOT`        | 21   | `mc-1.21.4`      |
+| 1.21.5              | `1.21.5-R0.1-SNAPSHOT`        | 21   | `mc-1.21.5`      |
+| 1.21.6              | `1.21.6-R0.1-SNAPSHOT`        | 21   | `mc-1.21.6`      |
+| 1.21.7              | `1.21.7-R0.1-SNAPSHOT`        | 21   | `mc-1.21.7`      |
+| 1.21.8              | `1.21.8-R0.1-SNAPSHOT`        | 21   | `mc-1.21.8`      |
+| 1.21.9              | `1.21.9-R0.1-SNAPSHOT`        | 21   | `mc-1.21.9`      |
+| 1.21.10             | `1.21.10-R0.1-SNAPSHOT`       | 21   | `mc-1.21.10`     |
+| **1.21.11** (default) | `1.21.11-R0.1-SNAPSHOT`     | 21   | `mc-1.21.11` / `mc-1.21` |
+| 26.1.1              | `26.1.1-R0.1-SNAPSHOT`        | **25** | `mc-26.1.1`    |
+| **26.1.2**          | `26.1.2-R0.1-SNAPSHOT`        | **25** | `mc-26.1.2` / `mc-26.1` |
+| 26.2.x (alpha)      | `26.2-R0.1-SNAPSHOT`          | **25** | `mc-26.2`      |
+
+> Mojang moved to a **year-based** scheme; after 1.25.x the next release is **26.1** ([announcement](https://papermc.io/news/26-1) · [1.21.11 + 26 changes](https://papermc.io/news/1-21-11/) · [Paper fill API](https://fill.papermc.io/v3/projects/paper/versions)).
 
 ### 26.1 notes that affect plugin authors
 
@@ -47,8 +56,13 @@ Build for a specific Minecraft line — pick the profile:
 mvn clean package -Pmc-1.20    # Java 17
 mvn clean package -Pmc-1.22    # Java 21
 mvn clean package -Pmc-1.25    # Java 21
-mvn clean package -Pmc-26.1    # year-based 26.1.x stable, Java 25 toolchain
+mvn clean package -Pmc-1.21.4  # pin to that exact 1.21 patch
+mvn clean package -Pmc-26.1    # newest 26.1.x (== 26.1.2), Java 25 toolchain
+mvn clean package -Pmc-26.1.1  # explicit 26.1.1
 mvn clean package -Pmc-26.2    # year-based 26.2.x alpha,  Java 25 toolchain
+
+# Or override directly without a profile:
+mvn clean package -Dpaper.api.version=1.21.7-R0.1-SNAPSHOT -Dplugin.api.version=1.21 -Djava.version=21
 ```
 
 The jar will be at `target/ForceSpawn-1.1.0-mc<version>.jar`. Drop it into your server's `plugins/` folder.
