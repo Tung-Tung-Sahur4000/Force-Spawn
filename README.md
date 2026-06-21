@@ -4,17 +4,17 @@ A Paper/Spigot plugin that forces every player to spawn in **The End** and block
 
 ## Supported versions
 
-| Minecraft   | Paper API profile | Java required |
-|-------------|-------------------|---------------|
-| 1.20.x      | `mc-1.20`         | 17            |
-| 1.21.x      | `mc-1.21` (default) | 21          |
-| 1.22.x      | `mc-1.22`         | 21            |
-| 1.23.x      | `mc-1.23`         | 21            |
-| 1.24.x      | `mc-1.24`         | 21            |
-| 1.25.x      | `mc-1.25`         | 21            |
-| 1.26.x      | `mc-1.26`         | **25**        |
+| Minecraft   | Paper API profile     | Java required |
+|-------------|-----------------------|---------------|
+| 1.20.x      | `mc-1.20`             | 17            |
+| 1.21.x      | `mc-1.21` (default)   | 21            |
+| 1.22.x      | `mc-1.22`             | 21            |
+| 1.23.x      | `mc-1.23`             | 21            |
+| 1.24.x      | `mc-1.24`             | 21            |
+| 1.25.x      | `mc-1.25`             | 21            |
+| **26.x**    | `mc-26`               | **25**        |
 
-> Minecraft 1.26 and newer require **Java 25**. Older Java will refuse to load the server jar.
+> Mojang switched to a year-based version scheme. After **1.25.x** the next release is **26.x** (Paper API `26.1-R0.1-SNAPSHOT`), which requires **Java 25**.
 
 ## What it does
 
@@ -38,7 +38,7 @@ Build for a specific Minecraft line — pick the profile:
 mvn clean package -Pmc-1.20    # Java 17
 mvn clean package -Pmc-1.22    # Java 21
 mvn clean package -Pmc-1.25    # Java 21
-mvn clean package -Pmc-1.26    # Java 25 toolchain required
+mvn clean package -Pmc-26      # year-based 26.x, Java 25 toolchain required
 ```
 
 The jar will be at `target/ForceSpawn-1.1.0-mc<version>.jar`. Drop it into your server's `plugins/` folder.

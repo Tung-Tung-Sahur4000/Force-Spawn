@@ -36,23 +36,31 @@ public class ForceSpawnPlugin extends JavaPlugin implements Listener {
     }
 
     private void checkRuntime() {
-        String mcVersion = Bukkit.getBukkitVersion(); // e.g. "1.21.4-R0.1-SNAPSHOT"
+        String mcVersion = Bukkit.getBukkitVersion(); // e.g. "1.21.4-..." (legacy) or "26.1-..." (year-based)
         int javaMajor = Runtime.version().feature();
-        int mcMinor = parseMinor(mcVersion);
         getLogger().info("Detected Minecraft " + mcVersion + " on Java " + javaMajor);
-        if (mcMinor >= 26 && javaMajor < 25) {
-            getLogger().severe("Minecraft 1.26+ requires Java 25 or newer. Current: Java " + javaMajor);
-        } else if (mcMinor >= 21 && javaMajor < 21) {
+
+        int[] parsed = parseVersion(mcVersion);
+        int major = parsed[0];
+        int minor = parsed[1];
+        boolean yearBased = major >= 26; // new scheme starts at 26.x
+
+        if (yearBased && javaMajor < 25) {
+            getLogger().severe("Minecraft " + major + ".x requires Java 25 or newer. Current: Java " + javaMajor);
+        } else if (!yearBased && major == 1 && minor >= 21 && javaMajor < 21) {
             getLogger().severe("Minecraft 1.21+ requires Java 21 or newer. Current: Java " + javaMajor);
         }
     }
 
-    private int parseMinor(String bukkitVersion) {
+    private int[] parseVersion(String bukkitVersion) {
         try {
             String[] parts = bukkitVersion.split("-")[0].split("\\.");
-            if (parts.length >= 2) return Integer.parseInt(parts[1]);
-        } catch (NumberFormatException ignored) {}
-        return 0;
+            int a = parts.length >= 1 ? Integer.parseInt(parts[0]) : 0;
+            int b = parts.length >= 2 ? Integer.parseInt(parts[1]) : 0;
+            return new int[] { a, b };
+        } catch (NumberFormatException e) {
+            return new int[] { 0, 0 };
+        }
     }
 
     private World getEndWorld() {
