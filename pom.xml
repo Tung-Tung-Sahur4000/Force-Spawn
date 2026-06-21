@@ -8,11 +8,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Default: build against newest 1.21 (1.21.11). The compiled jar runs on every
-             1.21.x release (1.21 through 1.21.11) plus 26.1.1 / 26.1.2.
-             Override the target with a profile (-Pmc-1.21.4) or directly:
-                 mvn package -Dpaper.api.version=1.21.7-R0.1-SNAPSHOT -Dplugin.api.version=1.21 -Djava.version=21
-        -->
         <java.version>21</java.version>
         <paper.api.version>1.21.11-R0.1-SNAPSHOT</paper.api.version>
         <plugin.api.version>1.21</plugin.api.version>
@@ -55,23 +50,10 @@
     </build>
 
     <profiles>
-        <!-- ============================================================
-             Legacy 1.20.x (Java 17)
-             ============================================================ -->
         <profile>
             <id>mc-1.20</id>
-            <properties>
-                <java.version>17</java.version>
-                <paper.api.version>1.20.6-R0.1-SNAPSHOT</paper.api.version>
-                <plugin.api.version>1.20</plugin.api.version>
-            </properties>
+            <properties><java.version>17</java.version><paper.api.version>1.20.6-R0.1-SNAPSHOT</paper.api.version><plugin.api.version>1.20</plugin.api.version></properties>
         </profile>
-
-        <!-- ============================================================
-             1.21.x family (Java 21) — every patch release builds.
-             All of these are runtime-compatible with the same jar; pick
-             a profile only if you want to compile against that exact API.
-             ============================================================ -->
         <profile>
             <id>mc-1.21.0</id>
             <properties><java.version>21</java.version><paper.api.version>1.21-R0.1-SNAPSHOT</paper.api.version><plugin.api.version>1.21</plugin.api.version></properties>
@@ -121,33 +103,26 @@
             <activation><activeByDefault>true</activeByDefault></activation>
             <properties><java.version>21</java.version><paper.api.version>1.21.11-R0.1-SNAPSHOT</paper.api.version><plugin.api.version>1.21</plugin.api.version></properties>
         </profile>
-        <!-- Convenience alias: -Pmc-1.21 == newest 1.21.x -->
         <profile>
             <id>mc-1.21</id>
             <properties><java.version>21</java.version><paper.api.version>1.21.11-R0.1-SNAPSHOT</paper.api.version><plugin.api.version>1.21</plugin.api.version></properties>
         </profile>
 
-        <!-- ============================================================
-             Year-based 26.1.x (Java 25 required)
-             ============================================================ -->
         <profile>
             <id>mc-26.1.1</id>
-            <properties><java.version>25</java.version><paper.api.version>26.1.1-R0.1-SNAPSHOT</paper.api.version><plugin.api.version>26.1</plugin.api.version></properties>
+            <properties><java.version>25</java.version><paper.api.version>26.1.1.build.29-alpha</paper.api.version><plugin.api.version>26.1</plugin.api.version></properties>
         </profile>
         <profile>
             <id>mc-26.1.2</id>
-            <properties><java.version>25</java.version><paper.api.version>26.1.2-R0.1-SNAPSHOT</paper.api.version><plugin.api.version>26.1</plugin.api.version></properties>
+            <properties><java.version>25</java.version><paper.api.version>26.1.2.build.72-stable</paper.api.version><plugin.api.version>26.1</plugin.api.version></properties>
         </profile>
-        <!-- Alias: -Pmc-26.1 == newest 26.1.x stable -->
         <profile>
             <id>mc-26.1</id>
-            <properties><java.version>25</java.version><paper.api.version>26.1.2-R0.1-SNAPSHOT</paper.api.version><plugin.api.version>26.1</plugin.api.version></properties>
+            <properties><java.version>25</java.version><paper.api.version>26.1.2.build.72-stable</paper.api.version><plugin.api.version>26.1</plugin.api.version></properties>
         </profile>
-
-        <!-- 26.2.x alpha -->
         <profile>
             <id>mc-26.2</id>
-            <properties><java.version>25</java.version><paper.api.version>26.2-R0.1-SNAPSHOT</paper.api.version><plugin.api.version>26.2</plugin.api.version></properties>
+            <properties><java.version>25</java.version><paper.api.version>26.2.build.26-alpha</paper.api.version><plugin.api.version>26.2</plugin.api.version></properties>
         </profile>
     </profiles>
 </project>
