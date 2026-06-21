@@ -1,0 +1,103 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Tag to create the release under (e.g. v1.1.0). Leave blank to only build artifacts.'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build mc-${{ matrix.mc }} (Java ${{ matrix.java }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - mc: '1.21.11'
+            profile: 'mc-1.21.11'
+            java: '21'
+          - mc: '26.1.2'
+            profile: 'mc-26.1.2'
+            java: '25'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+          cache: maven
+
+      - name: Build with Maven (-P${{ matrix.profile }})
+        run: mvn -B -ntp clean package -P${{ matrix.profile }}
+
+      - name: Rename jar for clarity
+        run: |
+          mkdir -p dist
+          cp target/ForceSpawn-*.jar "dist/ForceSpawn-mc${{ matrix.mc }}.jar"
+          ls -la dist/
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ForceSpawn-mc${{ matrix.mc }}
+          path: dist/ForceSpawn-mc${{ matrix.mc }}.jar
+          if-no-files-found: error
+
+  release:
+    name: Publish GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && github.event.inputs.release_tag != '')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: List artifacts
+        run: ls -la dist/
+
+      - name: Resolve tag
+        id: tag
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "name=${{ github.event.inputs.release_tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "name=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create / update GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.name }}
+          name: ForceSpawn ${{ steps.tag.outputs.name }}
+          generate_release_notes: true
+          body: |
+            ## ForceSpawn ${{ steps.tag.outputs.name }}
+
+            Stable builds:
+
+            | Minecraft | Java | Jar |
+            |-----------|------|-----|
+            | 1.21.11   | 21   | `ForceSpawn-mc1.21.11.jar` |
+            | 26.1.2    | 25   | `ForceSpawn-mc26.1.2.jar`  |
+
+            Drop the matching jar into your server's `plugins/` folder.
+          files: dist/*.jar
+          fail_on_unmatched_files: true
