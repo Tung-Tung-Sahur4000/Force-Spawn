@@ -132,22 +132,22 @@
              ============================================================ -->
         <profile>
             <id>mc-26.1.1</id>
-            <properties><java.version>25</java.version><paper.api.version>26.1.1-R0.1-SNAPSHOT</paper.api.version><plugin.api.version>26.1</plugin.api.version></properties>
+            <properties><java.version>25</java.version><paper.api.version>26.1.1.build.29-alpha</paper.api.version><plugin.api.version>26.1</plugin.api.version></properties>
         </profile>
         <profile>
             <id>mc-26.1.2</id>
-            <properties><java.version>25</java.version><paper.api.version>26.1.2-R0.1-SNAPSHOT</paper.api.version><plugin.api.version>26.1</plugin.api.version></properties>
+            <properties><java.version>25</java.version><paper.api.version>26.1.2.build.72-stable</paper.api.version><plugin.api.version>26.1</plugin.api.version></properties>
         </profile>
         <!-- Alias: -Pmc-26.1 == newest 26.1.x stable -->
         <profile>
             <id>mc-26.1</id>
-            <properties><java.version>25</java.version><paper.api.version>26.1.2-R0.1-SNAPSHOT</paper.api.version><plugin.api.version>26.1</plugin.api.version></properties>
+            <properties><java.version>25</java.version><paper.api.version>26.1.2.build.72-stable</paper.api.version><plugin.api.version>26.1</plugin.api.version></properties>
         </profile>
 
         <!-- 26.2.x alpha -->
         <profile>
             <id>mc-26.2</id>
-            <properties><java.version>25</java.version><paper.api.version>26.2-R0.1-SNAPSHOT</paper.api.version><plugin.api.version>26.2</plugin.api.version></properties>
+            <properties><java.version>25</java.version><paper.api.version>26.2.build.26-alpha</paper.api.version><plugin.api.version>26.2</plugin.api.version></properties>
         </profile>
     </profiles>
 </project>

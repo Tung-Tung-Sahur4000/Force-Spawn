@@ -21,9 +21,11 @@ The single jar runs on **every 1.21.x release (1.21 → 1.21.11)** and on **26.1
 | 1.21.9              | `1.21.9-R0.1-SNAPSHOT`        | 21   | `mc-1.21.9`      |
 | 1.21.10             | `1.21.10-R0.1-SNAPSHOT`       | 21   | `mc-1.21.10`     |
 | **1.21.11** (default) | `1.21.11-R0.1-SNAPSHOT`     | 21   | `mc-1.21.11` / `mc-1.21` |
-| 26.1.1              | `26.1.1-R0.1-SNAPSHOT`        | **25** | `mc-26.1.1`    |
-| **26.1.2**          | `26.1.2-R0.1-SNAPSHOT`        | **25** | `mc-26.1.2` / `mc-26.1` |
-| 26.2.x (alpha)      | `26.2-R0.1-SNAPSHOT`          | **25** | `mc-26.2`      |
+| 26.1.1              | `26.1.1.build.29-alpha`       | **25** | `mc-26.1.1`    |
+| **26.1.2**          | `26.1.2.build.72-stable`      | **25** | `mc-26.1.2` / `mc-26.1` |
+| 26.2.x (alpha)      | `26.2.build.26-alpha`         | **25** | `mc-26.2`      |
+
+> Year-based Paper artifacts use a new version-string format: `<mc>.build.<n>-<channel>` (e.g. `26.1.2.build.72-stable`) instead of the legacy `-R0.1-SNAPSHOT`.
 
 > Mojang moved to a **year-based** scheme; after 1.25.x the next release is **26.1** ([announcement](https://papermc.io/news/26-1) · [1.21.11 + 26 changes](https://papermc.io/news/1-21-11/) · [Paper fill API](https://fill.papermc.io/v3/projects/paper/versions)).
 
