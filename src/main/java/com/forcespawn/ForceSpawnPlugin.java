@@ -99,6 +99,15 @@ public class ForceSpawnPlugin extends JavaPlugin implements Listener {
 
     private boolean isOverworld(World world) {
         if (world == null) return false;
+        // Paper 26.1+ deprecates WorldInfo#getName for identity; prefer the namespaced key.
+        try {
+            org.bukkit.NamespacedKey key = world.getKey();
+            if (key != null && "minecraft".equals(key.getNamespace()) && "overworld".equals(key.getKey())) {
+                return true;
+            }
+        } catch (NoSuchMethodError ignored) {
+            // Older API without World#getKey — fall through to name/env check.
+        }
         if (world.getName().equalsIgnoreCase(overworldName)) return true;
         return world.getEnvironment() == World.Environment.NORMAL;
     }

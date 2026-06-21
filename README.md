@@ -12,9 +12,12 @@ A Paper/Spigot plugin that forces every player to spawn in **The End** and block
 | 1.23.x      | `mc-1.23`             | 21            |
 | 1.24.x      | `mc-1.24`             | 21            |
 | 1.25.x      | `mc-1.25`             | 21            |
-| **26.x**    | `mc-26`               | **25**        |
+| **26.1.x** stable | `mc-26.1`        | **25**        |
+| **26.2.x** alpha  | `mc-26.2`        | **25**        |
 
-> Mojang switched to a year-based version scheme. After **1.25.x** the next release is **26.x** (Paper API `26.1-R0.1-SNAPSHOT`), which requires **Java 25**.
+> Mojang switched to a **year-based** version scheme. After 1.25.x the next release is **26.1** ([Paper announcement](https://papermc.io/news/26-1)).
+> Current Paper artifacts: `io.papermc.paper:paper-api:26.1.2-R0.1-SNAPSHOT` (stable) and `26.2-R0.1-SNAPSHOT` (alpha). Both require **Java 25**.
+> Paper 26.1 also deprecates `WorldInfo#getName` for identity — this plugin uses `World#getKey()` first and falls back to the configured name on older APIs.
 
 ## What it does
 
@@ -38,7 +41,8 @@ Build for a specific Minecraft line — pick the profile:
 mvn clean package -Pmc-1.20    # Java 17
 mvn clean package -Pmc-1.22    # Java 21
 mvn clean package -Pmc-1.25    # Java 21
-mvn clean package -Pmc-26      # year-based 26.x, Java 25 toolchain required
+mvn clean package -Pmc-26.1    # year-based 26.1.x stable, Java 25 toolchain
+mvn clean package -Pmc-26.2    # year-based 26.2.x alpha,  Java 25 toolchain
 ```
 
 The jar will be at `target/ForceSpawn-1.1.0-mc<version>.jar`. Drop it into your server's `plugins/` folder.

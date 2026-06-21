@@ -112,13 +112,23 @@
             </properties>
         </profile>
 
-        <!-- 26.x year-based scheme (Java 25 required) -->
+        <!-- 26.1.x stable (Java 25 required) -->
         <profile>
-            <id>mc-26</id>
+            <id>mc-26.1</id>
             <properties>
                 <java.version>25</java.version>
-                <paper.api.version>26.1-R0.1-SNAPSHOT</paper.api.version>
-                <plugin.api.version>26</plugin.api.version>
+                <paper.api.version>26.1.2-R0.1-SNAPSHOT</paper.api.version>
+                <plugin.api.version>26.1</plugin.api.version>
+            </properties>
+        </profile>
+
+        <!-- 26.2.x alpha (Java 25 required) -->
+        <profile>
+            <id>mc-26.2</id>
+            <properties>
+                <java.version>25</java.version>
+                <paper.api.version>26.2-R0.1-SNAPSHOT</paper.api.version>
+                <plugin.api.version>26.2</plugin.api.version>
             </properties>
         </profile>
     </profiles>
