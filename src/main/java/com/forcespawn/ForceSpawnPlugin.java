@@ -31,7 +31,28 @@ public class ForceSpawnPlugin extends JavaPlugin implements Listener {
         kickMessage = getConfig().getString("kick-overworld-message", "The Overworld is disabled on this server.");
 
         getServer().getPluginManager().registerEvents(this, this);
+        checkRuntime();
         getLogger().info("ForceSpawn enabled. End world: " + endWorldName + ", blocked Overworld: " + overworldName);
+    }
+
+    private void checkRuntime() {
+        String mcVersion = Bukkit.getBukkitVersion(); // e.g. "1.21.4-R0.1-SNAPSHOT"
+        int javaMajor = Runtime.version().feature();
+        int mcMinor = parseMinor(mcVersion);
+        getLogger().info("Detected Minecraft " + mcVersion + " on Java " + javaMajor);
+        if (mcMinor >= 26 && javaMajor < 25) {
+            getLogger().severe("Minecraft 1.26+ requires Java 25 or newer. Current: Java " + javaMajor);
+        } else if (mcMinor >= 21 && javaMajor < 21) {
+            getLogger().severe("Minecraft 1.21+ requires Java 21 or newer. Current: Java " + javaMajor);
+        }
+    }
+
+    private int parseMinor(String bukkitVersion) {
+        try {
+            String[] parts = bukkitVersion.split("-")[0].split("\\.");
+            if (parts.length >= 2) return Integer.parseInt(parts[1]);
+        } catch (NumberFormatException ignored) {}
+        return 0;
     }
 
     private World getEndWorld() {

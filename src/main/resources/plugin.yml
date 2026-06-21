@@ -1,7 +1,7 @@
 name: ForceSpawn
-version: 1.0.0
+version: ${project.version}
 main: com.forcespawn.ForceSpawnPlugin
-api-version: '1.20'
+api-version: '${plugin.api.version}'
 author: ForceSpawn
 description: Forces all players to spawn in The End and disables the Overworld.
 load: STARTUP
